@@ -1,13 +1,12 @@
 Name: fingerterm
-Version:    1.1.17
+Version:    1.1.21
 Release: 1.13.5
 Summary: A terminal emulator with a custom virtual keyboard
 Group: System/Base
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-URL: https://github.com/nemomobile/fingerterm
+URL: https://git.merproject.org/mer-core/fingerterm
 BuildRequires: pkgconfig(Qt5Core)
-BuildRequires: pkgconfig(Qt5DBus)
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(Qt5Quick)
@@ -15,9 +14,6 @@ BuildRequires: pkgconfig(Qt0Feedback)
 BuildRequires: pkgconfig(nemonotifications-qt5) >= 1.0.4
 Requires: qt5-qtdeclarative-import-xmllistmodel
 Requires: qt5-qtdeclarative-import-window2
-Requires: qt-components-qt5
-Obsoletes: meego-terminal <= 0.2.2
-Provides: meego-terminal > 0.2.2
 
 %description
 %{summary}.
@@ -34,7 +30,7 @@ Provides: meego-terminal > 0.2.2
 
 %build
 sed -i 's,/opt/fingerterm/,/usr/,' fingerterm.pro
-qmake -qt=5 MEEGO_EDITION=nemo
+qmake -qt=5 MEEGO_EDITION=nemo CONFIG+=enable-feedback CONFIG+=enable-nemonotifications
 # Inject version number from RPM into source
 sed -i -e 's/PROGRAM_VERSION="[^"]*"/PROGRAM_VERSION="%{version}"/g' version.h
 make %{?_smp_mflags}
@@ -44,6 +40,14 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 make INSTALL_ROOT=%{buildroot} install
 %changelog
+* Wed May 17 2016 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.21
+- [fingerterm] Set window size before showing it. Fixes JB#35253
+* Wed May 11 2016 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.20
+- [fingerterm] Avoid most warnings on startup. Contributes to JB#35198
+* Wed May  6 2016 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.19
+- [fingerterm] Fullscreen window by default. Fixes MER#1582
+* Wed May  3 2016 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.18
+- [fingerterm] remove QtComponents dependency. Contributes to JB#10224
 * Wed Oct 15 2015 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.17
 - [fingerterm] Cyrillic support and other keyboard fixes. Fixes MER#1372
 * Wed Jun  3 2015 Thomas Perl <m@thp.io> - 1.1.16
