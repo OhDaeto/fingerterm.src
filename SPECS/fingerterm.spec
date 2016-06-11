@@ -1,5 +1,5 @@
 Name: fingerterm
-Version:    1.1.21
+Version:    1.1.22
 Release: 1
 Summary: A terminal emulator with a custom virtual keyboard
 Group: System/Base
@@ -40,6 +40,8 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 make INSTALL_ROOT=%{buildroot} install
 %changelog
+* Wed Jun 10 2016 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.22
+- [fingerterm] Refactorings
 * Wed May 17 2016 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.21
 - [fingerterm] Set window size before showing it. Fixes JB#35253
 * Wed May 11 2016 Pekka Vuorela <pekka.vuorela@jollamobile.com> - 1.1.20
